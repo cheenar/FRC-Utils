@@ -1,5 +1,6 @@
 package me.cheenar.frcutils.joys;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -36,6 +37,7 @@ public class CGJoystick
 	
 	private Joystick joystick;
 	private HashMap<String, Integer> buttonMapping = new HashMap<String, Integer>();
+	private ArrayList<CGJoystickFunction> functions = new ArrayList<CGJoystickFunction>();
 	
 	public CGJoystick(int port)
 	{
@@ -50,6 +52,16 @@ public class CGJoystick
 	public void insertMapping(String id, int button)
 	{
 		this.buttonMapping.put(id, button);
+	}
+	
+	public ArrayList<CGJoystickFunction> getFunctions()
+	{
+		return functions;
+	}
+	
+	public void injectFunction(CGJoystickFunction function)
+	{
+		getFunctions().add(function);
 	}
 	
 	/** WRAPPERS **/

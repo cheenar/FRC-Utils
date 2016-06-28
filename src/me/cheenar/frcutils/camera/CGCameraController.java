@@ -9,6 +9,22 @@ import com.ni.vision.NIVision.ImageType;
 import edu.wpi.first.wpilibj.CameraServer;
 import me.cheenar.frcutils.logging.Logger;
 
+/**
+ * 
+ * @author cheenar
+ * @version 1.0
+ *
+ */
+
+//Notes
+/*
+ * 
+ * The way that ports and names are handled is kinda jank
+ * maybe I should fix it, maybe I shouldn't
+ * Figure out during the season
+ * 
+ */
+
 public class CGCameraController 
 {
 	
@@ -41,6 +57,45 @@ public class CGCameraController
 	public ArrayList<CGCamera> getCameras()
 	{
 		return this.cameras;
+	}
+	
+	public boolean camerasContain(Object o)
+	{
+		for(CGCamera cam : cameras)
+		{
+			if(o instanceof String)
+			{
+				if(o instanceof String)
+				{
+					if(cam.getUID().equals((String)o))
+					{
+						return true;
+					}
+				}
+				if(o instanceof Integer)
+				{
+					if(cam.getPort() == (int)o)
+					{
+						return true;
+					}
+				}
+				if(o instanceof CGCamera)
+				{
+					if(cam == (CGCamera)o)
+					{
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	public boolean moreThanZeroCameras()
+	{
+		if(getCameras() == null)
+			return false;
+		return getCameras().size() > 0;
 	}
 	
 	public void addCamera(CGCamera camera)
@@ -140,8 +195,9 @@ public class CGCameraController
 	}
 	
 	/**
-	 * changeCamera
-	 * @param o takes either a string or integer
+	 * setCamera
+	 * USE THIS METHOD WHEN YOU WANT TO SET THE CAMERA AND BEGIN ACQUISITION
+	 * @param o takes either a string or integer or CGCamera
 	 */
 	public void setCamera(Object o)
 	{
@@ -162,6 +218,13 @@ public class CGCameraController
 			if(o instanceof Integer)
 			{
 				if(cam.getPort() == (int)o)
+				{
+					this.startAcquisition(cam);
+				}
+			}
+			if(o instanceof CGCamera)
+			{
+				if(cam == (CGCamera)o)
 				{
 					this.startAcquisition(cam);
 				}
