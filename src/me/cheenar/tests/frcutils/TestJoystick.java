@@ -13,8 +13,8 @@ public class TestJoystick
 	
 	public void test()
 	{
-		CGJoystick joystickLeft 	= new CGJoystick(0); //port that the joystick appears in the driver station
-		CGJoystick joystickRight 	= new CGJoystick(1);
+		CGJoystick joystickLeft 	= new CGJoystick(0, ""); //port that the joystick appears in the driver station
+		CGJoystick joystickRight 	= new CGJoystick(1, "");
 		
 		joystickLeft.insertMapping("change_camera_center", 0); //easy to insert the mapping
 		joystickRight.insertMapping("change_camera_right", 1); //removing the mapping is next to impossible actually. no its not, just add the function yourself if you need it (might add it myself)

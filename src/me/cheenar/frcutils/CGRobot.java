@@ -10,11 +10,14 @@ import me.cheenar.frcutils.camera.CGCamera;
 import me.cheenar.frcutils.camera.CGCameraController;
 import me.cheenar.frcutils.joys.CGJoystick;
 import me.cheenar.frcutils.joys.CGJoystickFunction;
-import me.cheenar.frcutils.logging.Logger;
+import me.cheenar.frcutils.logging.CGLogger;
 
 public abstract class CGRobot extends IterativeRobot
 {
 
+	/** SETTINGS **/
+	public static final double CONST_DRIVETRAIN_SPEED = 0.5;
+	
 	/** WPILIB SPECIFICATION **/
 	private Command autonomousCommand;
     private SendableChooser chooser;
@@ -48,7 +51,7 @@ public abstract class CGRobot extends IterativeRobot
 	{
 		if(controller == null)
 		{
-			Logger.consoleLog("Warning! CameraController object is null");
+			CGLogger.consoleLog("Warning! CameraController object is null");
 		}
 		this.cameraController = controller;
 	}
@@ -69,11 +72,21 @@ public abstract class CGRobot extends IterativeRobot
 		return this.joysticks;
 	}
 	
+	public CGJoystick getJoystick(String uid)
+	{
+		for(CGJoystick joy : joysticks)
+		{
+			if(joy.getUID().equals(uid))
+				return joy;
+		}
+		return null;
+	}
+	
 	public void injectJoystick(CGJoystick joy)
 	{
 		if(joy == null)
 		{
-			Logger.consoleLog("Warning! CGJoystick object is null");
+			CGLogger.consoleLog("Warning! CGJoystick object is null");
 		}
 		getJoysticks().add(joy);
 	}
@@ -110,8 +123,8 @@ public abstract class CGRobot extends IterativeRobot
 			getJoysticks().clear();
 		else
 		{
-			Logger.consoleLog("Error! Tried clearing a null joystick array!");
-			Logger.consoleLog("Critical error has occured, automatically instanciating array");
+			CGLogger.consoleLog("Error! Tried clearing a null joystick array!");
+			CGLogger.consoleLog("Critical error has occured, automatically instanciating array");
 			this.joysticks = new ArrayList<CGJoystick>();
 		}
 	}

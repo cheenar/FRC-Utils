@@ -5,6 +5,7 @@ import me.cheenar.frcutils.camera.CGCamera;
 import me.cheenar.frcutils.camera.CGCameraController;
 import me.cheenar.frcutils.joys.CGJoystick;
 import me.cheenar.frcutils.joys.CGJoystickFunction;
+import me.cheenar.frcutils.joys.CGJoystickName;
 
 public class TestRobot extends CGRobot
 {
@@ -17,7 +18,7 @@ public class TestRobot extends CGRobot
 		this.injectCamera(new CGCamera(1, "right"));
 		this.getCameraController().setCamera("left");
 		
-		CGJoystick leftStick = new CGJoystick(0);
+		CGJoystick leftStick = new CGJoystick(0, CGJoystickName.JOY_LEFT);
 		leftStick.insertMapping("change_camera_left", 0);
 		leftStick.injectFunction(new CGJoystickFunction() {
 

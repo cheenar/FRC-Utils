@@ -7,7 +7,7 @@ import com.ni.vision.NIVision.Image;
 import com.ni.vision.NIVision.ImageType;
 
 import edu.wpi.first.wpilibj.CameraServer;
-import me.cheenar.frcutils.logging.Logger;
+import me.cheenar.frcutils.logging.CGLogger;
 
 /**
  * 
@@ -163,7 +163,7 @@ public class CGCameraController
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			Logger.consoleLog("Camera failed during update loop");
+			CGLogger.consoleLog("Camera failed during update loop");
 		}
 	}
 	
@@ -171,7 +171,7 @@ public class CGCameraController
 	{
 		if(!((o instanceof String) || (o instanceof Integer)))
 		{
-			Logger.consoleLog("Not a string or integer (getCamera)");
+			CGLogger.consoleLog("Not a string or integer (getCamera)");
 		}
 		
 		for(CGCamera cam : cameras)
@@ -203,7 +203,7 @@ public class CGCameraController
 	{
 		if(!((o instanceof String) || (o instanceof Integer)))
 		{
-			Logger.consoleLog("Not a string or integer (changeCamera)");
+			CGLogger.consoleLog("Not a string or integer (changeCamera)");
 		}
 		
 		for(CGCamera cam : cameras)

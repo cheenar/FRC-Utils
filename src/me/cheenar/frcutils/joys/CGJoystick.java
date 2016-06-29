@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.Joystick;
-import me.cheenar.frcutils.logging.Logger;
+import me.cheenar.frcutils.logging.CGLogger;
 
 public class CGJoystick
 {
@@ -38,10 +38,24 @@ public class CGJoystick
 	private Joystick joystick;
 	private HashMap<String, Integer> buttonMapping = new HashMap<String, Integer>();
 	private ArrayList<CGJoystickFunction> functions = new ArrayList<CGJoystickFunction>();
+	private int port;
+	private String name;
 	
-	public CGJoystick(int port)
+	public CGJoystick(int port, String name)
 	{
+		this.port = port;
+		this.name = name;
 		this.joystick = new Joystick(port);
+	}
+	
+	public String getUID()
+	{
+		return this.name;
+	}
+	
+	public int getPort()
+	{
+		return this.port;
 	}
 	
 	public Joystick getJoystick()
@@ -126,7 +140,7 @@ public class CGJoystick
 		}
 		else
 		{
-			Logger.consoleLog("No key in button map exists");
+			CGLogger.consoleLog("No key in button map exists");
 		}
 		return false;
 	}

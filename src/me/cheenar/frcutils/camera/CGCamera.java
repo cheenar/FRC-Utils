@@ -2,7 +2,7 @@ package me.cheenar.frcutils.camera;
 
 import com.ni.vision.NIVision;
 
-import me.cheenar.frcutils.logging.Logger;
+import me.cheenar.frcutils.logging.CGLogger;
 
 public class CGCamera
 {
@@ -58,8 +58,8 @@ public class CGCamera
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			Logger.consoleLog("Failed to open the camera (check the port)");
-			Logger.consoleLog("Current cameraID: " + cameraID);
+			CGLogger.consoleLog("Failed to open the camera (check the port)");
+			CGLogger.consoleLog("Current cameraID: " + cameraID);
 		}
 	}
 	
@@ -75,7 +75,7 @@ public class CGCamera
 			catch(Exception e)
 			{
 				e.printStackTrace();
-				Logger.consoleLog("Failed to start the camera");
+				CGLogger.consoleLog("Failed to start the camera");
 			}
 		}
 	}
@@ -95,11 +95,11 @@ public class CGCamera
 			catch(Exception e)
 			{
 				e.printStackTrace();
-				Logger.consoleLog("Failed to stop the camera acquisition (not close the camera stream)");
+				CGLogger.consoleLog("Failed to stop the camera acquisition (not close the camera stream)");
 			}
 		}
 		else
-			Logger.consoleLog("Camera does not exist yet!");
+			CGLogger.consoleLog("Camera does not exist yet!");
 	}
 	
 	/**
@@ -111,7 +111,7 @@ public class CGCamera
 		if(camera != -1)
 			NIVision.IMAQdxCloseCamera(camera);
 		else
-			Logger.consoleLog("Camera does not exist yet!");
+			CGLogger.consoleLog("Camera does not exist yet!");
 	}
 	
 	public void onRotation()
