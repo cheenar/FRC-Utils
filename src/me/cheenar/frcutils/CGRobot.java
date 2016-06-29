@@ -11,6 +11,7 @@ import me.cheenar.frcutils.camera.CGCameraController;
 import me.cheenar.frcutils.joys.CGJoystick;
 import me.cheenar.frcutils.joys.CGJoystickFunction;
 import me.cheenar.frcutils.logging.CGLogger;
+import me.cheenar.frcutils.motors.CGDriveTrain;
 
 public abstract class CGRobot extends IterativeRobot
 {
@@ -27,6 +28,7 @@ public abstract class CGRobot extends IterativeRobot
 	private CGCameraController cameraController;
 	private Object defaultCamera;
 	private ArrayList<CGJoystick> joysticks;
+	private CGDriveTrain driveTrain;
 	
 	public CGRobot(boolean helperMode)
 	{
@@ -89,6 +91,19 @@ public abstract class CGRobot extends IterativeRobot
 			CGLogger.consoleLog("Warning! CGJoystick object is null");
 		}
 		getJoysticks().add(joy);
+	}
+	
+	//drivetrain
+	public void injectDrivetrain(CGDriveTrain driveTrain)
+	{
+		if(driveTrain == null)
+			CGLogger.consoleLog("Warning! DriveTrain object in injectDrivetrain() was null!");
+		this.driveTrain = driveTrain;
+	}
+	
+	public CGDriveTrain getDriveTrain()
+	{
+		return this.driveTrain;
 	}
 	
 	/** CAMERA CONTROLLER **/
@@ -201,6 +216,10 @@ public abstract class CGRobot extends IterativeRobot
         
         //handle inputs
         handleJoysticks();
+        
+        //handle driveTrain
+        if(driveTrain != null)
+        	driveTrain.drive(this);
     }
 	
 }

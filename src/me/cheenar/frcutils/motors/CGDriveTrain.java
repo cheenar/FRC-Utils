@@ -62,8 +62,10 @@ public abstract class CGDriveTrain
 	 * drive()
 	 * called during update loop
 	 */
+	//refactor this, its disgusting and can be written a much cleaner way
 	public void drive(CGRobot robot)
 	{
+		double deadzone = 0.4;
 		if(layout == CGDriveTrainLayout.LEFT_RIGHT_SIMPLE_FOUR_MOTOR)
 		{
 			if(getSpeedConfiguration() == CGDriveTrainSpeedConfiguration.DYNAMIC)
@@ -71,14 +73,43 @@ public abstract class CGDriveTrain
 				if(robot.getJoystick(CGJoystickName.JOY_RIGHT) != null)
 				{
 					CGJoystick joy = robot.getJoystick(CGJoystickName.JOY_RIGHT);
-					this.motors.get(RIGHT_FRONT).setSpeed(-joy.getY()); //JOYSTICK SHOULD BE INVERTED, IF NOT, OVERRIDE AND ADD CUSTOM CODE
-					this.motors.get(RIGHT_BACK).setSpeed(-joy.getY());
+					if(!joy.isLessThanDeadzoneTarget(deadzone))
+					{
+						this.motors.get(RIGHT_FRONT).setSpeed(-joy.getY()); //JOYSTICK SHOULD BE INVERTED, IF NOT, OVERRIDE AND ADD CUSTOM CODE
+						this.motors.get(RIGHT_BACK).setSpeed(-joy.getY());
+					}
 				}
 				if(robot.getJoystick(CGJoystickName.JOY_LEFT) != null)
 				{
 					CGJoystick joy = robot.getJoystick(CGJoystickName.JOY_LEFT);
-					this.motors.get(LEFT_FRONT).setSpeed(-joy.getY()); //JOYSTICK SHOULD BE INVERTED, IF NOT, OVERRIDE AND ADD CUSTOM CODE
-					this.motors.get(LEFT_BACK).setSpeed(-joy.getY());
+					if(!joy.isLessThanDeadzoneTarget(deadzone))
+					{
+						this.motors.get(LEFT_FRONT).setSpeed(-joy.getY()); //JOYSTICK SHOULD BE INVERTED, IF NOT, OVERRIDE AND ADD CUSTOM CODE
+						this.motors.get(LEFT_BACK).setSpeed(-joy.getY());
+					}
+				}
+			}
+			if(getSpeedConfiguration() == CGDriveTrainSpeedConfiguration.CONSTANT)
+			{
+				if(robot.getJoystick(CGJoystickName.JOY_RIGHT) != null)
+				{
+					CGJoystick joy = robot.getJoystick(CGJoystickName.JOY_RIGHT);
+					if(!joy.isLessThanDeadzoneTarget(deadzone))
+					{
+						double speed = (joy.getY()/joy.getY()) * this.getDriveSpeed();
+						this.motors.get(RIGHT_FRONT).setSpeed(speed);
+						this.motors.get(RIGHT_BACK).setSpeed(speed);
+					}
+				}
+				if(robot.getJoystick(CGJoystickName.JOY_LEFT) != null)
+				{
+					CGJoystick joy = robot.getJoystick(CGJoystickName.JOY_LEFT);
+					if(!joy.isLessThanDeadzoneTarget(deadzone))
+					{
+						double speed = (joy.getY()/joy.getY()) * this.getDriveSpeed();
+						this.motors.get(LEFT_FRONT).setSpeed(speed);
+						this.motors.get(LEFT_BACK).setSpeed(speed);
+					}
 				}
 			}
 		}
