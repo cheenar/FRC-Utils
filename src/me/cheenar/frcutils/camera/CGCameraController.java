@@ -59,6 +59,7 @@ public class CGCameraController
 		return this.cameras;
 	}
 	
+	// deprecated and edited by Varun Singh
 	@Deprecated
 	public boolean camerasContain(Object o)
 	{
@@ -89,6 +90,7 @@ public class CGCameraController
 		return false;
 	}
 	
+	// added by Varun Singh
 	public boolean camerasContainUID(Object o) {
 		if(o instanceof String)
 		{
@@ -100,6 +102,7 @@ public class CGCameraController
 		return false
 	}
 	
+	// added by Varun Singh
 	public boolean camerasContainPort(Object o) {
 		if(o instanceof Integer)
 		{
@@ -111,6 +114,7 @@ public class CGCameraController
 		return false;
 	}
 	
+	// added by Varun Singh
 	public boolean camerasContainCGCamera(Object o) {
 		if(o instanceof CGCamera)
 		{
