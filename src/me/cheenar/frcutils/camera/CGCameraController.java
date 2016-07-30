@@ -59,36 +59,66 @@ public class CGCameraController
 		return this.cameras;
 	}
 	
+	@Deprecated
 	public boolean camerasContain(Object o)
 	{
 		for(CGCamera cam : cameras)
 		{
 			if(o instanceof String)
 			{
-				if(o instanceof String)
+				if(cam.getUID().equals((String)o))
 				{
-					if(cam.getUID().equals((String)o))
-					{
-						return true;
-					}
+					return true;
 				}
-				if(o instanceof Integer)
+			}
+			if(o instanceof Integer)
+			{
+				if(cam.getPort() == (int)o)
 				{
-					if(cam.getPort() == (int)o)
-					{
-						return true;
-					}
+					return true;
 				}
-				if(o instanceof CGCamera)
+			}
+			if(o instanceof CGCamera)
+			{
+				if(cam == (CGCamera)o)
 				{
-					if(cam == (CGCamera)o)
-					{
-						return true;
-					}
+					return true;
 				}
 			}
 		}
 		return false;
+	}
+	
+	public boolean camerasContainUID(Object o) {
+		if(o instanceof String)
+		{
+			if(cam.getUID().equals((String)o))
+			{
+				return true;
+			}
+		}
+		return false
+	}
+	
+	public boolean camerasContainPort(Object o) {
+		if(o instanceof Integer)
+		{
+			if(cam.getPort() == (int)o)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean camerasContainCGCamera(Object o) {
+		if(o instanceof CGCamera)
+		{
+			if(cam == (CGCamera)o)
+			{
+				return true;
+			}
+		}
 	}
 	
 	public boolean moreThanZeroCameras()
